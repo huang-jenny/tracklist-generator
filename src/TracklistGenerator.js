@@ -116,7 +116,9 @@ const TracklistGenerator = () => {
           onDragOver={handleDrag}
           onDrop={handleDrop}>
           <label className="cursor-pointer w-full h-full block">
-            <div className="text-lg text-lime-200 p-8">DROP .TXT FILE HERE OR CLICK TO SELECT</div>
+            <div className="text-lg text-lime-200 p-8">
+              DROP FILE HERE OR CLICK TO SELECT (.TXT FORMAT ONLY)
+            </div>
             <input type="file" accept=".txt" onChange={handleFileUpload} className="hidden" />
           </label>
         </div>
