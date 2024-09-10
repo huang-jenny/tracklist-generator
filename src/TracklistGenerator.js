@@ -215,7 +215,7 @@ const TracklistGenerator = () => {
                 <div>
                   {copyFeedback && (
                     <FaCheck
-                      className="text-green-400"
+                      className="text-lime-400"
                       style={{ animation: 'fadeInOut 1.5s ease-in-out' }}
                     />
                   )}
