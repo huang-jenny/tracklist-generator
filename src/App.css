@@ -36,3 +36,26 @@
     transform: rotate(360deg);
   }
 }
+
+/* Custom horizontal scrollbar styles */
+.table-container {
+  overflow-x: auto;
+}
+
+/* Webkit scrollbar styles */
+.table-container::-webkit-scrollbar {
+  height: 8px; /* Adjust the height of the scrollbar */
+}
+
+.table-container::-webkit-scrollbar-track {
+  background: transparent; /* Scrollbar track */
+}
+
+.table-container::-webkit-scrollbar-thumb {
+  background: #888; /* Scrollbar thumb */
+  border-radius: 4px; /* Rounded corners */
+}
+
+.table-container::-webkit-scrollbar-thumb:hover {
+  background: #555; /* Darker color on hover */
+}
