@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { FaChevronDown, FaChevronUp } from 'react-icons/fa'; // Import an arrow icon
+import { FaCheck, FaChevronDown, FaChevronUp } from 'react-icons/fa'; // Import an arrow icon
 
 const TracklistGenerator = () => {
   const [tracklist, setTracklist] = useState([]);
@@ -8,6 +8,12 @@ const TracklistGenerator = () => {
   const [formattedTracklist, setFormattedTracklist] = useState('');
   const collapsedRows = 5; // Number of rows to show initially
   const [isExpanded, setIsExpanded] = useState(false);
+  const [copyFeedback, setCopyFeedback] = useState(false);
+  const [showNumbers, setShowNumbers] = useState(true);
+
+  useEffect(() => {
+    updateFormattedTracklist(tracklist);
+  }, [showNumbers]);
 
   const handleFileUpload = (event) => {
     const file = event.target.files[0];
@@ -42,7 +48,7 @@ const TracklistGenerator = () => {
         setColumns(headers);
         setTracklist(tracks);
         setIsExpanded(false);
-        generateFormattedTracklist(tracks);
+        updateFormattedTracklist(tracks);
       };
       reader.readAsText(file);
     } else {
@@ -65,12 +71,12 @@ const TracklistGenerator = () => {
     return { headers, tracks };
   };
 
-  const generateFormattedTracklist = (tracks) => {
+  const updateFormattedTracklist = (tracks) => {
     const formatted = tracks
       .map((track, index) => {
         const artist = track['Artist'] || track['Interpret'] || 'Unknown Artist';
         const title = track['Track Title'] || track['Trackname'] || 'Unknown Track';
-        return `${index + 1}. ${artist} - ${title}`;
+        return showNumbers ? `${index + 1}. ${artist} - ${title}` : `${artist} - ${title}`;
       })
       .join('\n');
     setFormattedTracklist(formatted);
@@ -79,10 +85,12 @@ const TracklistGenerator = () => {
   const copyToClipboard = () => {
     navigator.clipboard.writeText(formattedTracklist).then(
       () => {
-        alert('Formatted tracklist copied to clipboard!');
+        setCopyFeedback(true);
+        setTimeout(() => setCopyFeedback(false), 1500); // Feedback visible for 1.5 seconds
       },
       (err) => {
         console.error('Could not copy text: ', err);
+        setCopyFeedback(false);
       }
     );
   };
@@ -133,7 +141,7 @@ const TracklistGenerator = () => {
 
         {tracklist.length > 0 && (
           <>
-            <div className="mb-4">Your selected playlist:</div>
+            <div className="text-xl font-bold mb-4">YOUR PLAYLIST</div>
             <div className="relative">
               <div className="relative table-container overflow-x-auto">
                 <table className="w-full border-collapse ">
@@ -181,15 +189,36 @@ const TracklistGenerator = () => {
                 ))}
             </div>
             <div className="mt-8">
-              <h2 className="text-2xl font-bold mb-4">FORMATTED TRACKLIST</h2>
+              <h2 className="text-xl font-bold mb-4">FORMATTED TRACKLIST</h2>
+
+              <label className="inline-flex items-center cursor-pointer mb-4">
+                <input
+                  type="checkbox"
+                  checked={showNumbers}
+                  onChange={() => setShowNumbers(!showNumbers)}
+                  className="sr-only peer"
+                />
+                <div className="relative w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-lime-300 dark:peer-focus:ring-lime-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-lime-600"></div>
+                <span className="ms-3 text-lg">Show Track Numbers</span>
+              </label>
               <pre className="bg-[#1a1a1a] p-4 rounded-lg whitespace-pre-wrap">
                 {formattedTracklist}
               </pre>
-              <button
-                onClick={copyToClipboard}
-                className="mt-4 bg-gray-800 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded transition-colors duration-150 ease-in-out">
-                COPY TO CLIPBOARD
-              </button>
+              <div className="flex flex-row mt-4 items-center space-x-4">
+                <button
+                  onClick={copyToClipboard}
+                  className="bg-gray-800 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded transition-colors duration-150 ease-in-out">
+                  COPY TO CLIPBOARD
+                </button>
+                <div>
+                  {copyFeedback && (
+                    <FaCheck
+                      className="text-green-400"
+                      style={{ animation: 'fadeInOut 1.5s ease-in-out' }}
+                    />
+                  )}
+                </div>
+              </div>
             </div>
           </>
         )}
