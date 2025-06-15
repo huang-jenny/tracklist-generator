@@ -302,7 +302,7 @@ const TracklistGenerator = () => {
           </>
         )}
       </div>
-      <footer className="mt-12 text-end text-xs">
+      <footer className="mt-12 text-end text-xs mb-4 md:mb-0">
         <p>
           Created by{' '}
           <a
