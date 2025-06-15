@@ -116,6 +116,16 @@ const TracklistGenerator = () => {
     setIsExpanded(!isExpanded);
   };
 
+  // Resets all state to initial values
+  const resetPage = () => {
+    setTracklist([]);
+    setColumns([]);
+    setFormattedTracklist('');
+    setIsExpanded(false);
+    setCopyFeedback(false);
+    setShowNumbers(true);
+  };
+
   return (
     <div className="flex flex-col min-h-screen bg-color_background text-color_text px-10 py-8 font-mono">
       <div className="flex-grow">
@@ -123,8 +133,9 @@ const TracklistGenerator = () => {
         <div className="flex justify-center">
           <img
             src="/Logo_smaller.png"
-            className="w-2/3 sm:w-1/3 lg:w-1/5"
+            className="w-2/3 sm:w-1/3 lg:w-1/5 cursor-pointer"
             alt="Tracklist Generator"
+            onClick={resetPage}
           />
         </div>
 
