@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { FaCheck, FaChevronDown, FaChevronUp } from 'react-icons/fa'; // Import an arrow icon
 import { MdContentCopy } from 'react-icons/md';
+import { IoMdArrowRoundBack } from 'react-icons/io';
 
 const TracklistGenerator = () => {
   const [tracklist, setTracklist] = useState([]);
@@ -86,8 +87,13 @@ const TracklistGenerator = () => {
   const updateFormattedTracklist = (tracks) => {
     const formatted = tracks
       .map((track, index) => {
-        const artist = track['Artist'] || track['Interpret'] || 'Unknown Artist';
-        const title = track['Track Title'] || track['Trackname'] || 'Unknown Track';
+        const artist =
+          track['Artist'] || track['Interpret'] || track['Artiste'] || 'Unknown Artist';
+        const title =
+          track['Track Title'] ||
+          track['Trackname'] ||
+          track['Titre du morceau'] ||
+          'Unknown Track';
         return showNumbers ? `${index + 1}. ${artist} - ${title}` : `${artist} - ${title}`;
       })
       .join('\n');
@@ -128,31 +134,39 @@ const TracklistGenerator = () => {
 
   return (
     <div className="flex flex-col min-h-screen bg-color_background text-color_text px-10 py-8 font-mono">
+      <div className="flex justify-center mb-12 color_text">
+        <img
+          src="/Logo_smaller.png"
+          className="w-2/3 sm:w-1/3 lg:w-1/5 cursor-pointer"
+          alt="Tracklist Generator"
+          onClick={resetPage}
+        />
+      </div>
+      {tracklist.length !== 0 && (
+        <div className="flex items-center cursor-pointer mb-6 text-lg" onClick={resetPage}>
+          <IoMdArrowRoundBack className="text-color_text inline-block mr-2 " />
+          Back
+        </div>
+      )}
       <div className="flex-grow">
         {/* <h1 className="text-3xl font-bold mb-8 text-center">TRACKLIST GENERATOR</h1> */}
-        <div className="flex justify-center">
-          <img
-            src="/Logo_smaller.png"
-            className="w-2/3 sm:w-1/3 lg:w-1/5 cursor-pointer"
-            alt="Tracklist Generator"
-            onClick={resetPage}
-          />
-        </div>
 
         {/* <div className="mt-16 text-center"></div> */}
-        <div
-          className={`my-12 p-8 border-2 border-dashed border-color_text rounded-lg p-0 text-center cursor-pointer transition-all duration-300 ease-in-out bg-color_text ${dragActive ? 'border-gray-400 bg-opacity-15' : 'hover:bg-opacity-25 bg-opacity-10'}`}
-          onDragEnter={handleDrag}
-          onDragLeave={handleDrag}
-          onDragOver={handleDrag}
-          onDrop={handleDrop}>
-          <label className="cursor-pointer w-full h-full block">
-            <div className="text-lg p-8 font-bold">
-              DROP FILE HERE OR CLICK TO SELECT (.TXT FORMAT ONLY)
-            </div>
-            <input type="file" accept=".txt" onChange={handleFileUpload} className="hidden" />
-          </label>
-        </div>
+        {tracklist.length === 0 && (
+          <div
+            className={`p-8 border-2 border-dashed border-color_text rounded-lg text-center cursor-pointer transition-all duration-300 ease-in-out bg-color_text ${dragActive ? 'border-gray-400 bg-opacity-15' : 'hover:bg-opacity-25 bg-opacity-10'}`}
+            onDragEnter={handleDrag}
+            onDragLeave={handleDrag}
+            onDragOver={handleDrag}
+            onDrop={handleDrop}>
+            <label className="cursor-pointer w-full h-full block">
+              <div className="text-lg p-8 font-bold">
+                DROP FILE HERE OR CLICK TO SELECT (.TXT FORMAT ONLY)
+              </div>
+              <input type="file" accept=".txt" onChange={handleFileUpload} className="hidden" />
+            </label>
+          </div>
+        )}
         {tracklist.length === 0 && (
           <div className="mt-16 text-center">
             <p className="">
@@ -166,7 +180,7 @@ const TracklistGenerator = () => {
                 Right-click and choose <strong>Export Playlist</strong>
               </li>
               <li>
-                Select <strong>Export as .txt file</strong>
+                Select <strong>Export as .txt file</strong> and save it
               </li>
               <li>Drop the .txt file in the area above</li>
             </ol>
@@ -258,7 +272,7 @@ const TracklistGenerator = () => {
         <p>
           Created by{' '}
           <a
-            href="https://jennyhuang.de"
+            href="https://www.instagram.com/jeyrototo/"
             className="underline"
             target="_blank"
             rel="noopener noreferrer">
