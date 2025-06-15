@@ -304,14 +304,25 @@ const TracklistGenerator = () => {
       </div>
       <footer className="mt-12 text-end text-xs mb-4 md:mb-0">
         <p>
-          Created by{' '}
-          <a
-            href="https://www.instagram.com/jeyrototo/"
-            className="underline"
-            target="_blank"
-            rel="noopener noreferrer">
-            Jenny Huang
-          </a>
+          <span>
+            Created by{' '}
+            <a
+              href="https://www.instagram.com/jeyrototo/"
+              className="underline"
+              target="_blank"
+              rel="noopener noreferrer">
+              Jenny Huang
+            </a>
+          </span>
+          <span className="ml-8">
+            <a
+              href="https://github.com/huang-jenny/tracklist-generator"
+              className="underline"
+              target="_blank"
+              rel="noopener noreferrer">
+              Source Code
+            </a>
+          </span>
         </p>
       </footer>
     </div>
