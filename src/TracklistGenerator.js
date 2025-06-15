@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { FaCheck, FaChevronDown, FaChevronUp } from 'react-icons/fa'; // Import an arrow icon
+import { MdContentCopy } from 'react-icons/md';
 
 const TracklistGenerator = () => {
   const [tracklist, setTracklist] = useState([]);
@@ -58,9 +59,20 @@ const TracklistGenerator = () => {
 
   const parseTracklist = (text) => {
     const lines = text.split('\n').filter((line) => line.trim() !== '');
-    const headers = lines[0].split('\t');
 
-    const tracks = lines.slice(1).map((line) => {
+    let lastHeaderLine = 0; // the id of the last header line before the first track number
+    for (let i = 0; i < lines.length; i++) {
+      const firstCol = lines[i].split('\t')[0];
+      if (firstCol === '1') {
+        lastHeaderLine = i - 1; // The last header line is the one before the first track number
+        break;
+      }
+    }
+    // Combine all header lines into one header row
+    const headerLines = lines.slice(0, lastHeaderLine + 1);
+    const headers = headerLines.join('').split('\t');
+
+    const tracks = lines.slice(lastHeaderLine + 1).map((line) => {
       const values = line.split('\t');
       return headers.reduce((obj, header, index) => {
         obj[header] = values[index];
@@ -214,7 +226,8 @@ const TracklistGenerator = () => {
               <div className="flex flex-row mt-4 items-center space-x-4">
                 <button
                   onClick={copyToClipboard}
-                  className="bg-color_text bg-opacity-90 hover:bg-opacity-100 text-color_background py-2 px-4 rounded transition-colors duration-150 ease-in-out">
+                  className="bg-color_text bg-opacity-90 hover:bg-opacity-100 text-color_background py-2 px-4 rounded transition-colors duration-150 ease-in-out align-middle flex items-center">
+                  <MdContentCopy className="inline-block mr-2" />
                   COPY TO CLIPBOARD
                 </button>
                 <div>
