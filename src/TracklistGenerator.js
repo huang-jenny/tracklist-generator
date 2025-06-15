@@ -88,12 +88,46 @@ const TracklistGenerator = () => {
     const formatted = tracks
       .map((track, index) => {
         const artist =
-          track['Artist'] || track['Interpret'] || track['Artiste'] || 'Unknown Artist';
+          track['Artist'] || //english
+          track['Interpret'] || //german
+          track['Artiste'] || //french
+          track['Artista'] || //spanish
+          track['Artista'] || //italian
+          track['Artiest'] || //dutch
+          track['Intérprete'] || //portuguese
+          track['Interprete'] || //swedish
+          track['Kunstner'] || //danish
+          track['Sanatçı'] || //turkish#
+          track['表演者'] || //chinese
+          track['演出者'] || //chinese traditional
+          track['아티스트'] || //korean
+          track['アーティスト'] || //japanese
+          track['Исполнитель'] || //russian
+          track['Καλλιτέχνης'] || //greek
+          track['Előadó'] || //hungarian
+          track['Interpret'] || //czech
+          'Unknown Artist';
         const title =
-          track['Track Title'] ||
-          track['Trackname'] ||
-          track['Titre du morceau'] ||
+          track['Track Title'] || //english
+          track['Trackname'] || //german
+          track['Titre du morceau'] || //french
+          track['Título de la pista'] || //spanish
+          track['Titolo Brano'] || //italian
+          track['Titel van muziekstuk'] || //dutch
+          track['Título da Faixa'] || //portuguese
+          track['Spårtitel'] || //swedish
+          track['Titel på musiknummer'] || //danish
+          track['Parça Başlığı'] || //turkish
+          track['曲目标题'] || //chinese
+          track['音軌標題'] || //chinese traditional
+          track['트랙 제목'] || //korean
+          track['トラックタイトル'] || //japanese
+          track['Название дорожки'] || //russian
+          track['Τίτλος κομματιού'] || //greek
+          track['Felvétel címe'] || //hungarian
+          track['Název stopy'] || //czech
           'Unknown Track';
+
         return showNumbers ? `${index + 1}. ${artist} - ${title}` : `${artist} - ${title}`;
       })
       .join('\n');
