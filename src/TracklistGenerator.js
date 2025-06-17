@@ -187,38 +187,38 @@ const TracklistGenerator = () => {
 
         {/* <div className="mt-16 text-center"></div> */}
         {tracklist.length === 0 && (
-          <div
-            className={`p-8 border-2 border-dashed border-color_text rounded-lg text-center cursor-pointer transition-all duration-300 ease-in-out bg-color_text ${dragActive ? 'border-gray-400 bg-opacity-15' : 'hover:bg-opacity-25 bg-opacity-10'}`}
-            onDragEnter={handleDrag}
-            onDragLeave={handleDrag}
-            onDragOver={handleDrag}
-            onDrop={handleDrop}>
-            <label className="cursor-pointer w-full h-full block">
-              <div className="text-lg p-8 font-bold">
-                DROP FILE HERE OR CLICK TO SELECT (.TXT FORMAT ONLY)
-              </div>
-              <input type="file" accept=".txt" onChange={handleFileUpload} className="hidden" />
-            </label>
-          </div>
-        )}
-        {tracklist.length === 0 && (
-          <div className="mt-16 text-center">
-            <p className="">
-              This Tracklist Generator helps you convert your Rekordbox playlist to a Tracklist
-              format.
-            </p>
-            <p className="mt-8">How-to:</p>
-            <ol className="list-decimal list-inside space-y-2 mt-2">
-              <li>Select your playlist in Rekordbox (e.g. from the history)</li>
-              <li>
-                Right-click and choose <strong>Export Playlist</strong>
-              </li>
-              <li>
-                Select <strong>Export as .txt file</strong> and save it
-              </li>
-              <li>Drop the .txt file in the area above</li>
-            </ol>
-          </div>
+          <>
+            <div
+              className={`p-8 border-2 border-dashed border-color_text rounded-lg text-center cursor-pointer transition-all duration-300 ease-in-out bg-color_text ${dragActive ? 'border-gray-400 bg-opacity-15' : 'hover:bg-opacity-25 bg-opacity-10'}`}
+              onDragEnter={handleDrag}
+              onDragLeave={handleDrag}
+              onDragOver={handleDrag}
+              onDrop={handleDrop}>
+              <label className="cursor-pointer w-full h-full block">
+                <div className="text-lg p-8 font-bold">
+                  DROP FILE HERE OR CLICK TO SELECT (.TXT FORMAT ONLY)
+                </div>
+                <input type="file" accept=".txt" onChange={handleFileUpload} className="hidden" />
+              </label>
+            </div>
+            <div className="mt-16 text-center">
+              <p className="">
+                This Tracklist Generator helps you convert your Rekordbox playlist to a Tracklist
+                format.
+              </p>
+              <p className="mt-8">How-to:</p>
+              <ol className="list-decimal list-inside space-y-2 mt-2">
+                <li>Select your playlist in Rekordbox (e.g. from the history)</li>
+                <li>
+                  Right-click and choose <strong>Export Playlist</strong>
+                </li>
+                <li>
+                  Select <strong>Export as .txt file</strong> and save it
+                </li>
+                <li>Drop the .txt file in the area above</li>
+              </ol>
+            </div>
+          </>
         )}
 
         {tracklist.length > 0 && (
@@ -285,7 +285,7 @@ const TracklistGenerator = () => {
               <div className="flex flex-row mt-4 items-center space-x-4">
                 <button
                   onClick={copyToClipboard}
-                  className="bg-color_text bg-opacity-90 hover:bg-opacity-100 text-color_background py-2 px-4 rounded transition-colors duration-150 ease-in-out align-middle flex items-center">
+                  className="bg-color_text bg-opacity-10 hover:bg-opacity-15 text-color_text py-2 px-4 rounded transition-colors duration-150 ease-in-out align-middle flex items-center">
                   <MdContentCopy className="inline-block mr-2" />
                   COPY TO CLIPBOARD
                 </button>
