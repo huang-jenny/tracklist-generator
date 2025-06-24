@@ -148,11 +148,6 @@ const TracklistGenerator = () => {
   };
 
   const toggleRows = () => {
-    // if (isExpanded) {
-    //   setVisibleRows(5);
-    // } else {
-    //   setVisibleRows(tracklist.length); // Show all rows
-    // }
     setIsExpanded(!isExpanded);
   };
 
@@ -167,11 +162,11 @@ const TracklistGenerator = () => {
   };
 
   return (
-    <div className="flex flex-col min-h-screen bg-color_background text-color_text px-10 py-8 font-mono">
+    <div className="flex flex-col min-h-screen bg-color_background text-color_text px-4 md:px-10 py-8 font-mono">
       <div className="flex justify-center mb-12 color_text">
         <img
           src="/Logo_smaller.png"
-          className="w-2/3 sm:w-1/3 lg:w-1/5 cursor-pointer"
+          className="w-2/3 sm:w-1/3 md:w-1/4 xl:w-1/5 2xl:w-1/6 cursor-pointer"
           alt="Tracklist Generator"
           onClick={resetPage}
         />
@@ -183,9 +178,6 @@ const TracklistGenerator = () => {
         </div>
       )}
       <div className="flex-grow">
-        {/* <h1 className="text-3xl font-bold mb-8 text-center">TRACKLIST GENERATOR</h1> */}
-
-        {/* <div className="mt-16 text-center"></div> */}
         {tracklist.length === 0 && (
           <>
             <div
@@ -277,7 +269,7 @@ const TracklistGenerator = () => {
                   className="sr-only peer"
                 />
                 <div className="relative w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-text_color dark:peer-focus:ring-text_color rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-color_text"></div>
-                <span className="ms-3 text-lg">Show Track Numbers</span>
+                <span className="ms-3 text-md">Show Track Numbers</span>
               </label>
               <pre className="bg-color_text bg-opacity-90 text-color_background p-4 rounded-lg whitespace-pre-wrap">
                 {formattedTracklist}
